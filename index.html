@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JSON HW</title>
+  <style>
+      body{font-family:Verdana;}
+  </style>
+</head>
+<body>
+  <p id="p1">Placeholder p1</p>
+	<script>
+//Part 1: Create JSON representing setlist___________________________________
+
+//(creating vars for playlist and iteration variables) 	
+  var playlist, i,k,r,s,t, x = "";
+    playlist = [{
+    "songTitle": "YO LE LLEGO",
+    "artists": ["Bad Bunny", "J Balvin"],
+    "genres": ["Latin trap","Reggeaton"],
+    "year": "2019"
+  },
+  {
+    "songTitle": "Tribe",
+    "artists": ["J. Cole", "Bas"],
+    "genres": ["Rap"],
+    "year": "2018"
+  },
+  {
+    "songTitle": "Lost in Japan (Remix)",
+    "artists": ["Shawn Mendes", "Zedd"],
+    "genres": ["Electronic","Pop"],
+    "year": "2018"
+  },
+  {
+    "songTitle": "Angels",
+    "artists": ["Chance the Rapper"],
+    "genres": ["Rap"],
+    "year": "2016"
+  },
+  {
+    "songTitle": "Strawberry Fields Forever",
+    "artists": ["The Beatles"],
+    "genres": ["Rock"],
+    "year": "1967"
+  },
+  {
+    "songTitle": "Thunderclouds",
+    "artists": ["Sia","Diplo","Labrinth","LSD"],
+    "genres": ["Pop"],
+    "year": "2018"
+  },
+  {
+    "songTitle": "Ultralight Beam",
+    "artists": ["Kanye West"],
+    "genres": ["Rap"],
+    "year": "2018"
+  },
+  {
+    "songTitle": "Paradise",
+    "artists": ["Coldplay"],
+    "genres": ["Pop"],
+    "year": "2011"
+  },
+  {
+    "songTitle": "Havana",
+    "artists": ["Camilla Cabello", "Young Thug"],
+    "genres": ["Pop"],
+    "year": "2018"
+  },
+  {
+    "songTitle": "Te Boté",
+    "artists": ["Bad Bunny", "Casper Magico","Nio Garcia"],
+    "genres": ["Latin trap","Reggeaton"],
+    "year": "2017"
+  }]
+    
+ //Part 2: Serialize and Display JSON setlist_________________________________     
+ 
+        var jsonString = JSON.stringify(playlist);
+        document.getElementById("p1").innerHTML = jsonString;
+        document.getElementById("p1").innerHTML += "<br><br>";
+	
+//Part 3: Display Data in Human Readable Format_______________________________  
+	
+     for(var r = 0; r < playlist.length; r++){
+        document.getElementById("p1").innerHTML += "<b>" + playlist[r].songTitle + "</b>" + "<br>" + "Genres: ";
+        for (s in playlist[r].genres){
+          //stringify the current JSON and remove trailing and leading quotations
+          var currJSON = JSON.stringify(playlist[r].genres[s]);
+          currJSON = currJSON.replace(/^"(.*)"$/, '$1');
+            document.getElementById("p1").innerHTML += currJSON + ",";
+        }
+        document.getElementById("p1").innerHTML += "<br>" + "Artists: ";
+        for (t in playlist[r].artists){
+          //stringify the current JSON and remove trailing and leading quotations
+          var currJSON = JSON.stringify(playlist[r].artists[t]);
+          currJSON = currJSON.replace(/^"(.*)"$/, '$1');
+            document.getElementById("p1").innerHTML += currJSON + ",";
+        }
+         document.getElementById("p1").innerHTML += "<br>";
+        document.getElementById("p1").innerHTML += "Year: " + playlist[r].year + "<br><br>";
+      }
+
+
+//Part 4: Filter Data via Form___________(form above)___________________________ 
+// iterate through each element, and then iterate through each genres array looking for match
+  	function myFunction(form){
+      document.getElementById("p2").innerHTML = "" + "<br>";
+  		var user_choice = form.choice.value;
+      for(var k = 0; k < playlist.length; k++){
+    		for (i in playlist[k].genres){
+          //stringify the current JSON and remove trailing and leading quotations
+    			var currJSON = JSON.stringify(playlist[k].genres[i]);
+    			currJSON = currJSON.replace(/^"(.*)"$/, '$1');
+    			if(currJSON == user_choice) {
+    				var theTitle = playlist[k].songTitle;
+            document.getElementById("p2").innerHTML += theTitle + "<br>";
+    			}
+    		}
+      }
+  	}
+  </script>
+     <form method="get">
+	   <select name="choice">
+                <option value="Rap">Rap</option>
+                <option value="Pop">Pop</option>
+                <option value="Rock">Rock</option>
+                <option value="Reggeaton">Reggeaton</option>
+            </select><br>
+	    <button type="button" onclick="myFunction(form)">Find Music!</button>
+	</form>
+    <p><b>Found Songs:</b></p>
+    <p id="p2"></p>
+</body>
+</html>
